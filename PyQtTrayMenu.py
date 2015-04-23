@@ -1,7 +1,13 @@
 import sys
+import os
 from PyQt4 import QtCore, QtGui
 
-sys.path.insert(0, 'modules')
+dir = os.path.dirname(sys.argv[0])
+if len(dir) == 0:
+    dir = 'modules'
+else:
+    dir = dir + '/modules'
+sys.path.insert(0, dir)
 
 app = QtGui.QApplication(sys.argv)
 
