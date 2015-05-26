@@ -74,3 +74,5 @@ The following configuration create a pop-up menu with two items:
     }
 }
 ```
+
+This config file is commited and can be tested with `python PyQtTrayMenu.py PyQtTrayMenu.cfg` from the root of the repository.
