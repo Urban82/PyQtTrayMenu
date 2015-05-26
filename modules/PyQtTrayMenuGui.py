@@ -52,6 +52,8 @@ class TrayIcon(QtGui.QSystemTrayIcon):
         exitAction = m.addAction("Exit")
         exitAction.triggered.connect(QtGui.qApp.quit)
 
+        self.activated.connect(lambda: self.contextMenu().popup(QtGui.QCursor.pos()))
+
         self.setContextMenu(m)
         self.show()
 
