@@ -5,6 +5,7 @@ Author: Danilo Treffiletti <urban82@gmail.com>
 
 ## Dependencies
 This project use:
+* Python 3.3
 * Qt 4.8
 * PyQt4
 
