@@ -11,6 +11,8 @@ This project use:
 ## Configuration
 The configuration is created with a JSON file. You can create more than a JSON file an call the application, passing different configurations, to create different menues on your SysTray.
 
+See [CONFIG.md](https://github.com/Urban82/PyQtTrayMenu/blob/master/CONFIG.md)
+
 ## License
 PyQtTrayMenu is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
