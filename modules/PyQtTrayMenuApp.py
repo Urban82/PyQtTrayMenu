@@ -18,6 +18,8 @@ class App:
         self.__config = PyQtTrayMenuConfig.Config(QtGui.qApp.arguments()[1:])
 
         # Create TrayIcon
-        self.__trayIcon = PyQtTrayMenuGui.TrayIcon(self.__config.menu(), w)
+        self.__trayIcon = PyQtTrayMenuGui.TrayIcon(w)
+        self.__trayIcon.readConfig(self.__config.menu())
+        self.__trayIcon.show()
 
         sys.exit(QtGui.qApp.exec_())

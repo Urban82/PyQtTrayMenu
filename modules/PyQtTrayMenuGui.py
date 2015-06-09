@@ -37,25 +37,28 @@ def info(msg, err = None):
     QtGui.QMessageBox.information(w, "PyQtTrayMenu", m2)
 
 class TrayIcon(QtGui.QSystemTrayIcon):
+    __menu = None
 
     def __init__(self, menu, parent = None):
         QtGui.QSystemTrayIcon.__init__(self, parent)
-        self.setToolTip(menu['name'])
-        self.setIcon(QtGui.QIcon(menu['icon']))
 
-        m = QtGui.QMenu(parent)
-
-        for item in menu['items']:
-            self.__scan_menu(m, item)
-
-        m.addSeparator()
-        exitAction = m.addAction("Exit")
-        exitAction.triggered.connect(QtGui.qApp.quit)
+        self.__menu = QtGui.QMenu(parent)
+        self.setContextMenu(self.__menu)
 
         self.activated.connect(lambda: self.contextMenu().popup(QtGui.QCursor.pos()))
 
-        self.setContextMenu(m)
-        self.show()
+    def readConfig(self, menu):
+        self.setToolTip(menu['name'])
+        self.setIcon(QtGui.QIcon(menu['icon']))
+
+        self.__menu.clear()
+
+        for item in menu['items']:
+            self.__scan_menu(self.__menu, item)
+
+        self.__menu.addSeparator()
+        exitAction = self.__menu.addAction("Exit")
+        exitAction.triggered.connect(QtGui.qApp.quit)
 
     def __scan_menu(self, m, item):
         itemAction = m.addAction(item['name'])
