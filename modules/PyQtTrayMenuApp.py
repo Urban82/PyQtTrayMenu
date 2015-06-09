@@ -19,7 +19,12 @@ class App:
 
         # Create TrayIcon
         self.__trayIcon = PyQtTrayMenuGui.TrayIcon(w)
+        self.__trayIcon.reloadConfig.connect(self.reloadConfig)
         self.__trayIcon.readConfig(self.__config.menu())
         self.__trayIcon.show()
 
         sys.exit(QtGui.qApp.exec_())
+
+    def reloadConfig(self):
+        self.__config.readConfig()
+        self.__trayIcon.readConfig(self.__config.menu())

@@ -39,13 +39,15 @@ def info(msg, err = None):
 class TrayIcon(QtGui.QSystemTrayIcon):
     __menu = None
 
+    reloadConfig = QtCore.pyqtSignal()
+
     def __init__(self, menu, parent = None):
         QtGui.QSystemTrayIcon.__init__(self, parent)
 
         self.__menu = QtGui.QMenu(parent)
         self.setContextMenu(self.__menu)
 
-        self.activated.connect(lambda: self.contextMenu().popup(QtGui.QCursor.pos()))
+        self.activated.connect(self.__activated)
 
     def readConfig(self, menu):
         self.setToolTip(menu['name'])
@@ -73,6 +75,12 @@ class TrayIcon(QtGui.QSystemTrayIcon):
                 self.__scan_menu(m2, subitem)
 
             itemAction.setMenu(m2)
+
+    def __activated(self, reason):
+        if reason == QtGui.QSystemTrayIcon.MiddleClick:
+            self.reloadConfig.emit()
+        else:
+            self.contextMenu().popup(QtGui.QCursor.pos())
 
     def __menu_clicked(self, item):
         if 'command' in item:
