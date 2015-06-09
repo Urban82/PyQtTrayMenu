@@ -22,16 +22,20 @@ class Config:
             PyQtTrayMenuGui.warning("Not implemented yet!")
             sys.exit(0)
         else:
-            try:
-                self.__configFile = open(self.__configFileName, "r")
-                self.__config = json.loads(self.__configFile.read())
-                self.__check_config()
-            except OSError as ex:
-                PyQtTrayMenuGui.critical("Unable to read config file \"{0}\"".format(self.__configFileName), ex.strerror, 1)
-            except ValueError as ex:
-                PyQtTrayMenuGui.critical("Unable to read config file \"{0}\"".format(self.__configFileName), str(ex), 1)
-            except:
-                PyQtTrayMenuGui.critical("Unable to read config file \"{0}\"".format(self.__configFileName), sys.exc_info()[0], 1)
+            self.readConfig()
+
+    def readConfig(self):
+        try:
+            self.__configFile = open(self.__configFileName, "r")
+            self.__config = json.loads(self.__configFile.read())
+            self.__configFile.close()
+            self.__check_config()
+        except OSError as ex:
+            PyQtTrayMenuGui.critical("Unable to read config file \"{0}\"".format(self.__configFileName), ex.strerror, 1)
+        except ValueError as ex:
+            PyQtTrayMenuGui.critical("Unable to read config file \"{0}\"".format(self.__configFileName), str(ex), 1)
+        except:
+            PyQtTrayMenuGui.critical("Unable to read config file \"{0}\"".format(self.__configFileName), sys.exc_info()[0], 1)
 
     def __check_config(self):
         if not 'app' in self.__config:
