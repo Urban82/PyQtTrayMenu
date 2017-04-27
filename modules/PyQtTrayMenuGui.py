@@ -63,6 +63,9 @@ class TrayIcon(QtGui.QSystemTrayIcon):
         exitAction.triggered.connect(QtGui.qApp.quit)
 
     def __scan_menu(self, m, item):
+        if 'separator' in item:
+            m.addSeparator()
+            return
         itemAction = m.addAction(item['name'])
         if 'icon' in item:
             itemAction.setIcon(QtGui.QIcon(item['icon']))

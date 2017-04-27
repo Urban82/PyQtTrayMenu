@@ -73,6 +73,10 @@ class Config:
             i = i + 1
 
     def __check_config_item(self, item, path):
+        if type(item) != type({}):
+            raise ValueError("Invalid configuration JSON: invalid value for key \"{0}\"".format(path))
+        if 'separator' in item:
+            return
         if not 'name' in item:
             raise ValueError("Invalid configuration JSON: missing key \"{0}.name\"".format(path))
         if type(item['name']) != type(""):
