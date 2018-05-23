@@ -36,6 +36,12 @@ def info(msg, err = None):
     w = QtGui.QWidget()
     QtGui.QMessageBox.information(w, "PyQtTrayMenu", m2)
 
+def get_icon(icon):
+    if icon[0] == "/":
+        return QtGui.QIcon(icon)
+    else:
+        return QtGui.QIcon.fromTheme(icon)
+
 class TrayIcon(QtGui.QSystemTrayIcon):
     __menu = None
 
@@ -51,7 +57,7 @@ class TrayIcon(QtGui.QSystemTrayIcon):
 
     def readConfig(self, menu):
         self.setToolTip(menu['name'])
-        self.setIcon(QtGui.QIcon(menu['icon']))
+        self.setIcon(get_icon(menu['icon']))
 
         self.__menu.clear()
 
@@ -68,7 +74,7 @@ class TrayIcon(QtGui.QSystemTrayIcon):
             return
         itemAction = m.addAction(item['name'])
         if 'icon' in item:
-            itemAction.setIcon(QtGui.QIcon(item['icon']))
+            itemAction.setIcon(get_icon(item['icon']))
         if 'command' in item:
             itemAction.triggered.connect(lambda: self.__menu_clicked(item))
         elif 'items' in item:
