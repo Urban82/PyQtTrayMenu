@@ -9,7 +9,7 @@ def critical(msg, err = None, exit_val = 1):
     else:
         m1 = msg
         m2 = msg
-    QtCore.qCritical("PyQtTrayMenu.py: error: {0}".format(m1));
+    QtCore.qCritical("PyQtTrayMenu.py: error: {0}".format(m1))
     w = QtGui.QWidget()
     QtGui.QMessageBox.critical(w, "PyQtTrayMenu", m2)
     sys.exit(exit_val)
@@ -21,7 +21,7 @@ def warning(msg, err = None):
     else:
         m1 = msg
         m2 = msg
-    QtCore.qWarning("PyQtTrayMenu.py: warning: {0}".format(m1));
+    QtCore.qWarning("PyQtTrayMenu.py: warning: {0}".format(m1))
     w = QtGui.QWidget()
     QtGui.QMessageBox.warning(w, "PyQtTrayMenu", m2)
 
@@ -32,7 +32,7 @@ def info(msg, err = None):
     else:
         m1 = msg
         m2 = msg
-    QtCore.qDebug("PyQtTrayMenu.py: info: {0}".format(m1));
+    QtCore.qDebug("PyQtTrayMenu.py: info: {0}".format(m1))
     w = QtGui.QWidget()
     QtGui.QMessageBox.information(w, "PyQtTrayMenu", m2)
 
@@ -47,7 +47,7 @@ class TrayIcon(QtGui.QSystemTrayIcon):
 
     reloadConfig = QtCore.pyqtSignal()
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         QtGui.QSystemTrayIcon.__init__(self, parent)
 
         self.__menu = QtGui.QMenu(parent)
