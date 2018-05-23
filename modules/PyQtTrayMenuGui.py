@@ -41,7 +41,7 @@ class TrayIcon(QtGui.QSystemTrayIcon):
 
     reloadConfig = QtCore.pyqtSignal()
 
-    def __init__(self, menu, parent = None):
+    def __init__(self, parent = None):
         QtGui.QSystemTrayIcon.__init__(self, parent)
 
         self.__menu = QtGui.QMenu(parent)
