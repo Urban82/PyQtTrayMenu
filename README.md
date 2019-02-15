@@ -5,9 +5,9 @@ Author: Danilo Treffiletti <urban82@gmail.com>
 
 ## Dependencies
 This project use:
-* Python 3.3
-* Qt 4.8
-* PyQt4
+* Python 3
+* Qt 5
+* PyQt5
 
 ## Configuration
 The configuration is created with a JSON file. You can create more than a JSON file an call the application, passing different configurations, to create different menues on your SysTray.

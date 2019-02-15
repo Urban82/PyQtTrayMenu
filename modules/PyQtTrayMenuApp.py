@@ -1,5 +1,5 @@
 import sys
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtWidgets
 
 import PyQtTrayMenuConfig
 import PyQtTrayMenuGui
@@ -12,10 +12,10 @@ class App:
         pass
 
     def run(self):
-        w = QtGui.QWidget()
+        w = QtWidgets.QWidget()
 
         # Check config
-        self.__config = PyQtTrayMenuConfig.Config(QtGui.qApp.arguments()[1:])
+        self.__config = PyQtTrayMenuConfig.Config(QtWidgets.qApp.arguments()[1:])
 
         # Create TrayIcon
         self.__trayIcon = PyQtTrayMenuGui.TrayIcon(w)
@@ -23,7 +23,7 @@ class App:
         self.__trayIcon.readConfig(self.__config.menu())
         self.__trayIcon.show()
 
-        sys.exit(QtGui.qApp.exec_())
+        sys.exit(QtWidgets.qApp.exec_())
 
     def reloadConfig(self):
         self.__config.readConfig()

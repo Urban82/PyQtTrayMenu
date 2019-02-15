@@ -1,7 +1,6 @@
 import argparse
 import sys
 import json
-from PyQt4 import QtCore
 
 import PyQtTrayMenuGui
 

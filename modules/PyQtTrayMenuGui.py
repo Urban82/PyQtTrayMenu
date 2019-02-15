@@ -1,6 +1,6 @@
 import sys
 import subprocess
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 def critical(msg, err = None, exit_val = 1):
     if err:
@@ -10,7 +10,7 @@ def critical(msg, err = None, exit_val = 1):
         m1 = msg
         m2 = msg
     QtCore.qCritical("PyQtTrayMenu.py: error: {0}".format(m1))
-    w = QtGui.QWidget()
+    w = QtWidgets.QWidget()
     QtGui.QMessageBox.critical(w, "PyQtTrayMenu", m2)
     sys.exit(exit_val)
 
@@ -22,7 +22,7 @@ def warning(msg, err = None):
         m1 = msg
         m2 = msg
     QtCore.qWarning("PyQtTrayMenu.py: warning: {0}".format(m1))
-    w = QtGui.QWidget()
+    w = QtWidgets.QWidget()
     QtGui.QMessageBox.warning(w, "PyQtTrayMenu", m2)
 
 def info(msg, err = None):
@@ -33,7 +33,7 @@ def info(msg, err = None):
         m1 = msg
         m2 = msg
     QtCore.qDebug("PyQtTrayMenu.py: info: {0}".format(m1))
-    w = QtGui.QWidget()
+    w = QtWidgets.QWidget()
     QtGui.QMessageBox.information(w, "PyQtTrayMenu", m2)
 
 def get_icon(icon):
@@ -42,15 +42,15 @@ def get_icon(icon):
     else:
         return QtGui.QIcon.fromTheme(icon)
 
-class TrayIcon(QtGui.QSystemTrayIcon):
+class TrayIcon(QtWidgets.QSystemTrayIcon):
     __menu = None
 
     reloadConfig = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
-        QtGui.QSystemTrayIcon.__init__(self, parent)
+        QtWidgets.QSystemTrayIcon.__init__(self, parent)
 
-        self.__menu = QtGui.QMenu(parent)
+        self.__menu = QtWidgets.QMenu(parent)
         self.setContextMenu(self.__menu)
 
         self.activated.connect(self.__activated)
@@ -66,7 +66,7 @@ class TrayIcon(QtGui.QSystemTrayIcon):
 
         self.__menu.addSeparator()
         exitAction = self.__menu.addAction("Exit")
-        exitAction.triggered.connect(QtGui.qApp.quit)
+        exitAction.triggered.connect(QtWidgets.qApp.quit)
 
     def __scan_menu(self, m, item):
         if 'separator' in item:
@@ -78,7 +78,7 @@ class TrayIcon(QtGui.QSystemTrayIcon):
         if 'command' in item:
             itemAction.triggered.connect(lambda: self.__menu_clicked(item))
         elif 'items' in item:
-            m2 = QtGui.QMenu(m)
+            m2 = QtWidgets.QMenu(m)
 
             for subitem in item['items']:
                 self.__scan_menu(m2, subitem)
@@ -86,7 +86,7 @@ class TrayIcon(QtGui.QSystemTrayIcon):
             itemAction.setMenu(m2)
 
     def __activated(self, reason):
-        if reason == QtGui.QSystemTrayIcon.MiddleClick:
+        if reason == QtWidgets.QSystemTrayIcon.MiddleClick:
             self.reloadConfig.emit()
         else:
             self.contextMenu().popup(QtGui.QCursor.pos())
